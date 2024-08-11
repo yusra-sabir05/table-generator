@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Table Generator</title>
+    <style>
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Multiplication Table Generator</h2>
+
+    <div style="text-align: center;">
+        <label for="rows">Enter the multiplication number (1-10): </label>
+        <input type="number" id="rows" min="1" max="10">
+        <button onclick="generateTable()">Generate Table</button>
+    </div>
+
+    <div id="tableContainer"></div>
+
+    <script>
+        function generateTable() {
+            const maxRows = 10;
+            const number = parseInt(document.getElementById('rows').value);
+
+            if (isNaN(number) || number < 1 || number > maxRows) {
+                alert(`Please enter a valid number between 1 and ${maxRows}`);
+                return;
+            }
+
+            const tableContainer = document.getElementById('tableContainer');
+            tableContainer.innerHTML = ''; // Clear previous table
+
+            const table = document.createElement('table');
+            const tableHeader = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            const th1 = document.createElement('th');
+            th1.textContent = 'Multiplier';
+            const th2 = document.createElement('th');
+            th2.textContent = 'Result';
+            headerRow.appendChild(th1);
+            headerRow.appendChild(th2);
+            tableHeader.appendChild(headerRow);
+            table.appendChild(tableHeader);
+
+            const tableBody = document.createElement('tbody');
+            for (let i = 1; i <= maxRows; i++) {
+                const row = document.createElement('tr');
+                const multiplierCell = document.createElement('td');
+                const resultCell = document.createElement('td');
+                
+                multiplierCell.textContent = `${number} x ${i}`;
+                resultCell.textContent = `${number * i}`;
+
+                row.appendChild(multiplierCell);
+                row.appendChild(resultCell);
+                tableBody.appendChild(row);
+            }
+            table.appendChild(tableBody);
+            tableContainer.appendChild(table);
+        }
+    </script>
+</body>
+</html>
